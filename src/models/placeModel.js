@@ -3,7 +3,7 @@ export default {
 			name: 'KimyoungGap',
 			img: 'KimyoungGap.png',
 			items: [{
-					name: 'One'
+					name: 'One',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -38,7 +38,7 @@ export default {
 			name: 'Brick Campus',
 			img: 'Brick Campus.jpeg',
 			items: [{
-					name: 'One'
+					name: 'One',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -73,7 +73,7 @@ export default {
 			name: 'Jayeonsarang',
 			img: 'Jayeonsarang.jpeg',
 			items: [{
-					name: 'One'
+					name: 'One',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -108,7 +108,7 @@ export default {
 			name: 'Gallery nori',
 			img: 'nori.jpeg',
 			items: [{
-					name: 'One'
+					name: 'One',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -145,44 +145,41 @@ export default {
 	},
 	getPlace(name) {
 		return Promise.resolve(
-			this.data.fliter(item => item.name === name)
+			this.data.filter(item => item.name === name)[0]
 		)
 	},
 	getTasks(name) {
 		return Promise.resolve(
-			this.getPlace(name).items.fliter(i => i.completed === false)
+			this.getPlace(name).then(data => data.items.filter(i => i.completed === false))
 		)
 	},
 	moveToCompleted(place, name) {
-		this.getTasks(place).fliter(item => item.name === name).completed === true
-	}
+		return Promise.resolve(
+			this.getTasks(place).then(data => data.filter(item => item.name === name).forEach(item => item.completed = true))
+		)
+	},
 	getCompleted(name) {
 		return Promise.resolve(
-			this.getPlace(name).items.fliter(i => i.completed === true)
+			this.getPlace(name).then(data => data.items.filter(i => i.completed === true))
 		)
 	},
 	getTotalCoin() {
-		// let total = 0
-		// for (const place of this.data) {
-		// total += this.getCompleted(place.name).length
-		// })
 		return Promise.resolve(
-			// total
 			this.data.reduce((acc, place) => {
-				acc += this.getCompleted(place.name).length
+				acc += place.items.filter(item => item.completed === true).length
 				return acc
-			}, 0)
+			}, 0) * 10
 		)
 	},
 	getVisitedDate(name) {
 		return Promise.resolve(
-			this.data.fliter(item => item.visitedDate)
+			this.getPlace(name).then(data => data.visitedDate)
 		)
 	},
 	randomChoice() {
 		const place = this.data[Math.floor(Math.random() * this.data.length)]
 		const selected = place.items[Math.floor(Math.random() * place.items.length)]
 		selected.completed = true
-		return Promise.resolve(selected)
+		return Promise.resolve({place: place.name, selected: selected})
 	}
 }
