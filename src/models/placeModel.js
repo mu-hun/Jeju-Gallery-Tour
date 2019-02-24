@@ -36,7 +36,7 @@ export default {
 		},
 		{
 			name: 'Brick Campus',
-			img: 'Brick Campus.jpeg',
+			img: 'BrickCampus.jpeg',
 			items: [{
 					name: 'One',
 					img: 'profile.jpg',

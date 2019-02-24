@@ -5,13 +5,35 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="main.css" type="text/css">
+		<link rel="stylesheet" href="./fonts/mdi/css/materialdesignicons-light.min.css" />
 	</head>
 	<body>
 		<div id="app">
-			
+			<h1>{{screens[screenIndex]}}</h1>
+			<!-- <card v-bind:items="places"></card> -->
+			<div v-show="screenIndex===0" v-for="place in places" class="card" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }">
+				<h2>{{place.name}}</h2>
+			</div>
+			<div v-show="screenIndex===1">
+
+			</div>
+			<div v-show="screenIndex===3">
+
+			</div>
+			<div class="bottom-app-bar">
+				<span class="mdil-active mdil mdil-map-marker"></span>
+				<span class="mdil mdil-flag"></span>
+				<span class="mdil mdil-clock"></span>
+			</div>
 		</div>
 		<script src="./vue.js"></script>
 		<script type="module" src="./src/app.js"></script>
-		<script type="module" src="./src/test.js"></script>
+		<!-- <script type="module" src="./src/test.js"></script> -->
 	</body>
 </html>
+
+<template id="card">
+	<div v-for="place in places" class="card" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }">
+		<h2>{{place.name}}</h2>
+	</div>
+</template>
