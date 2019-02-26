@@ -34,6 +34,7 @@ new Vue({
 						const randomItem = data
 						placeModel.moveToCompleted(randomItem)
 						this.fetchCompletedList()
+						this.selectedScreen = this.screens[2]
 					})
 				})
 			}
@@ -77,18 +78,18 @@ new Vue({
 			this.selectedTab = tab
 		},
 		goPlace() {
-			if (!this.screen==='Place') return
+			if (!this.screen === 'Place') return
 			this.selectedScreen = this.screens[0]
 			this.selectedPlace = false
 		},
 		goCoin() {
-			if (!this.screen==='Coin') return
+			if (!this.screen === 'Coin') return
 			this.getTotalCoin()
 			this.selectedScreen = this.screens[1]
 			this.selectedPlace = false
 		},
 		goTimeLine() {
-			if (!this.screen==='TimeLine') return
+			if (!this.screen === 'TimeLine') return
 			this.fetchCompletedList(name)
 			this.selectedScreen = this.screens[2]
 			this.selectedPlace = false
