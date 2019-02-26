@@ -154,9 +154,7 @@ export default {
 		)
 	},
 	moveToCompleted({place, name}) {
-		// return Promise.resolve(
-			this.getTasks(place).then(data => data.filter(item => item.name === name).forEach(item => item.completed = true))
-		// )
+		this.getTasks(place).then(data => data.filter(item => item.name === name).forEach(item => item.completed = true))
 	},
 	getCompleted(name) {
 		//FIX: TypeError: "(intermediate value).getCompleted(...).then is not a function"
@@ -188,6 +186,6 @@ export default {
 		const place = this.data[Math.floor(Math.random() * this.data.length)]
 		const selected = place.items[Math.floor(Math.random() * place.items.length)]
 		selected.completed = true
-		return Promise.resolve({place: place.name, selected: selected})
+		return Promise.resolve({place: place.name, name: selected})
 	}
 }
