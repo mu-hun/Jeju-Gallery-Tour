@@ -1,26 +1,55 @@
 :root {
 	--black: #323232;
-	--light-white: #F1F1F1;
-	--disable: #0000008a
+	--active-tab: rgba(0, 0, 0, 0.87);
+	--disable: #0000008a;
+	--f-one-white: #F1F1F1;
+	--very-light: rgba(216, 216, 216, 0.5);
 }
 
 body {
 	margin: 0;
 }
 
-h1, h2 {
+h1,
+h2 {
 	font-family: 'Inter UI';
+}
+
+.user-id,
+.total-coin,
+.card > li h3,
+.card > li h4 {
+	font-family: 'SpoqaHanSans';
+	font-weight: normal;
 }
 
 h1 {
 	margin-top: 19px;
-	margin-left: 26px;
 	font-size: 36px;
 	font-weight: bold;
+}
+
+h1, .user-id, .total-coin {
+	margin-left: 26px;
 	color: var(--black)
 }
 
-.card {
+
+.user-id {
+	margin-top: 20px;
+	font-size: 8px;
+}
+
+.total-coin {
+	font-size: 24px;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0
+}
+
+.card > li {
 	height: 140px;
 	margin: 0 28px 16px;
 	opacity: 0.92;
@@ -29,14 +58,77 @@ h1 {
 	background-position-y: bottom -1.5em;
 	border-radius: 0.5em;
 	position: relative;
+	cursor: pointer;
 }
 
-.card > h2 {
+.card.coin li {
+	cursor: unset;
+}
+
+.card > li h2,
+.card > li h3,
+.card > li h4 {
+	position: absolute;
 	margin-left: 15px;
+	color: var(--f-one-white)
+}
+
+.card > li h2 {
 	margin-bottom: 0;
 	bottom: 16px;
-	position: absolute;
-	color: var(--light-white)
+}
+
+.card > li .details {
+	position: relative;
+}
+
+.card > li h3{
+	margin-top: 16px;
+	font-size: 12px;
+}
+
+.card > li h4 {
+	margin-top: 34px;
+	font-size: 24px;
+}
+
+ul.tabs {
+	display: flex;
+	font-family: 'Libre Franklin';
+	box-shadow: 0 10px 12px -8px #0000006e;
+}
+
+.tabs li {
+	display: inline-block;
+	width: 50%;
+	font-size: 14px;
+	font-weight: 800;
+	letter-spacing: 1.3px;
+	padding: 16px;
+	text-align: center;
+	box-sizing: border-box;
+	color: var(--black);
+	cursor: pointer;
+}
+
+.tabs li.active {
+	border-bottom: 2.5px solid var(--active-tab);
+	cursor: unset;
+}
+
+.bar {
+	width: 100%;
+	height: 8px;
+	background-color: var(--very-light);
+	margin-bottom: 14px;
+}
+
+.timeline {
+	color: var(--black)
+}
+
+div.timeline > .bar {
+	margin-top: 20px;
 }
 
 .bottom-app-bar {
@@ -57,9 +149,11 @@ h1 {
 	margin: 16px auto;
 	font-size: 24px;
 	-webkit-text-stroke: .7px var(--black);
-	color: var(--disable)
+	color: var(--disable);
+	cursor: pointer;
 }
 
 .mdil-active {
-	color: var(--black)
+	color: var(--black);
+	cursor: unset;
 }

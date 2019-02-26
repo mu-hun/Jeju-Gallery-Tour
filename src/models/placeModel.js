@@ -3,28 +3,28 @@ export default {
 			name: 'KimyoungGap',
 			img: 'KimyoungGap.png',
 			items: [{
-					name: 'One',
+					name: 'KimyoungGapOne',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Two',
+					name: 'TKimyoungGapwo',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Three',
+					name: 'ThreKimyoungGape',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Four',
+					name: 'FKimyoungGapour',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -38,28 +38,28 @@ export default {
 			name: 'Brick Campus',
 			img: 'BrickCampus.jpeg',
 			items: [{
-					name: 'One',
+					name: 'OBrick Campusne',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Two',
+					name: 'Two Brick Campus',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Three',
+					name: 'ThBrick Campusree',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Four',
+					name: 'Brick CampusFour',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -73,28 +73,28 @@ export default {
 			name: 'Jayeonsarang',
 			img: 'Jayeonsarang.jpeg',
 			items: [{
-					name: 'One',
+					name: 'OneJayeonsarang',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Two',
+					name: 'TwJayeonsarango',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Three',
+					name: 'JayeonsarangThree',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Four',
+					name: 'FoJayeonsarangur',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -108,28 +108,28 @@ export default {
 			name: 'Gallery nori',
 			img: 'nori.jpeg',
 			items: [{
-					name: 'One',
+					name: 'nori One',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Two',
+					name: 'Two Gallery',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Three',
+					name: 'nory Three',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
 					completed: false
 				},
 				{
-					name: 'Four',
+					name: 'Four Gallery',
 					img: 'profile.jpg',
 					detail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.',
 					tag: '#want #go #home',
@@ -137,7 +137,7 @@ export default {
 				}
 			],
 			coin: 0,
-			visitedDate: 'Day 23 Mon'
+			visitedDate: 'Day 10 Mon'
 		}
 	],
 	list() {
@@ -153,14 +153,22 @@ export default {
 			this.getPlace(name).then(data => data.items.filter(i => i.completed === false))
 		)
 	},
-	moveToCompleted(place, name) {
-		return Promise.resolve(
+	moveToCompleted({place, name}) {
+		// return Promise.resolve(
 			this.getTasks(place).then(data => data.filter(item => item.name === name).forEach(item => item.completed = true))
-		)
+		// )
 	},
 	getCompleted(name) {
+		//FIX: TypeError: "(intermediate value).getCompleted(...).then is not a function"
+		if (!name) {
+			return Promise.resolve('')
+		}
 		return Promise.resolve(
-			this.getPlace(name).then(data => data.items.filter(i => i.completed === true))
+			this.getPlace(name).then(data => {
+				const filtered = data.items.filter(i => i.completed === true)
+				data.coin = filtered.length
+				return filtered
+			})
 		)
 	},
 	getTotalCoin() {
