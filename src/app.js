@@ -32,10 +32,11 @@ new Vue({
 				navigator.nfc.watch((msg) => {
 					placeModel.randomChoice().then(data => {
 						// const randomItem = data
+						alert(data)
 						placeModel.moveToCompleted(data)
-						this.fetchCompletedList()
-						this.selectedScreen = this.screens[2]
 					})
+					this.fetchCompletedList()
+					this.selectedScreen = this.screens[2]
 				})
 			}
 		},
