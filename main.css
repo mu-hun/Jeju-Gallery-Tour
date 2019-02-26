@@ -131,6 +131,20 @@ div.timeline > .bar {
 	margin-top: 20px;
 }
 
+.nfc {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	position: fixed;
+	bottom: 60px;
+	background-color: var(--f-one-white);
+	/* border: solid 1px; */
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	/* margin: 0 auto; */
+}
+
 .bottom-app-bar {
 	color: var(--black);
 	display: flex;
@@ -141,7 +155,7 @@ div.timeline > .bar {
 	box-sizing: border-box;
 	width: 100%;
 	height: 56px;
-	background-color: white;
+	background-color: var(--f-one-white);
 	box-shadow: 0 1px 3px 0 #00000033, 0 2px 1px -1px #0000001e, 0 1px 1px 0 #00000023;
 }
 

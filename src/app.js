@@ -64,6 +64,15 @@ new Vue({
 		// fetchCompletedItem(name) {
 
 		// },
+		manualActive() {
+			placeModel.randomChoice().then(data => {
+				// const randomItem = data
+				console.log(data)
+				placeModel.moveToCompleted(data)
+			})
+			this.fetchCompletedList()
+			this.selectedScreen = this.screens[2]
+		},
 		getTotalCoin() {
 			placeModel.getTotalCoin().then(data => {
 				this.totalCoin = data
