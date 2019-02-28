@@ -1,102 +1,106 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Jeju Gallery Tour</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="main.css" type="text/css">
-		<link rel="stylesheet" href="./fonts/mdi/css/materialdesignicons-light.min.css" />
-	</head>
-	<body>
-		<div id="app">
-			<h1>{{selectedScreen}}</h1>
-			<!-- <card v-bind:items="places"></card> -->
-			<div v-show="!selectedPlace">
-				<ul v-show="selectedScreen===screens[0]" class="card">
-					<li v-for="place in places"
-					v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }"
-					v-on:click="onClickCard(place.name)">
+
+<head>
+	<title>Jeju Gallery Tour</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="main.css" type="text/css">
+	<link rel="stylesheet" href="./fonts/mdi/css/materialdesignicons-light.min.css" />
+</head>
+
+<body>
+	<div id="app">
+		<h1>{{selectedScreen}}</h1>
+		<!-- <card v-bind:items="places"></card> -->
+		<div v-show="!selectedPlace">
+			<ul v-show="selectedScreen===screens[0]" class="card places">
+				<li v-for="place in places" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }"
+				 v-on:click="onClickCard(place.name)">
+					<h2>{{place.name}}</h2>
+				</li>
+			</ul>
+			<div v-show="selectedScreen===screens[1]">
+				<div class="user-id">{{id}}</div>
+				<div class="total-coin">{{totalCoin}} C</div>
+				<div class="bar"></div>
+				<ul class="card coin">
+					<li v-for="(place, index) in places" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }">
+						<div class="details">
+							<h3>#{{index}}</h3>
+							<h4>{{place.coin}}</h4>
+						</div>
 						<h2>{{place.name}}</h2>
 					</li>
 				</ul>
-				<div v-show="selectedScreen===screens[1]">
-					<div class="user-id">{{id}}</div>
-					<div class="total-coin">{{totalCoin}} C</div>
-					<div class="bar"></div>
-					<ul class="card coin">
-						<li v-for="(place, index) in places"
-						v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }">
-							<div class="details">
-								<h3>#{{index}}</h3>
-								<h4>{{place.coin}}</h4>
-							</div>
-							<h2>{{place.name}}</h2>
-						</li>
-					</ul>
-				</div>
-				<div v-show="selectedScreen===screens[2]"
-				class="timeline">
-					<div class="bar"></div>
-					<ul>
-						<li v-if="completed" v-for="place in completed" class="date">
-							<div>{{place.visitedDate}}</div>
-							<img :src="'./images/'+place.img">
-							<h2>{{place.name}}</h2>
-							<ul>
-								<li v-for="item in place.items">
-									<span v-if="item">{{item}}</span>
-									<span v-else>
-										Not have a item
-									</span>
-								</li>
-							</ul>
-						</li>
-						<li v-else>
-							Not have a item yet
-						</li>
-					</ul>
-				</div>
 			</div>
-			<div v-show="selectedPlace">
-				<ul class="tabs">
-					<li v-for="tab in tabs" v-bind:class="{active: tab === selectedTab}"
-					v-on:click="onClickTab(tab)">
-						{{tab}}
+			<div v-show="selectedScreen===screens[2]" class="timeline">
+				<div class="bar"></div>
+				<ul>
+					<span v-if="completed.length">
+					<li v-for="place in completed" class="date">
+						<div>{{place.visitedDate}}</div>
+						<img :src="'./images/36x36/'+place.img">
+						<h2>{{place.name}}</h2>
+						<ul>
+							<li v-for="item in place.items">
+								<span>{{item}}</span>
+							</li>
+						</ul>
 					</li>
-				</ul>
-				<ul class="card">
-					<div v-if="selectedTab==='TASKS'">
-						<li v-for="item in tasks">
-							<h2>{{item.name}}</h2>
-							<img :src="'./images/'+item.img">
-							<p>{{item.detail}}</p>
-							<p>{{item.tag}}</p>
-						</li>
-					</div>
-					<div v-else>
-						<li v-if="completed" v-for="item in completed">
-							{{item}}
-						</li>
-						Not have a list
+					</span>
+					<div v-else class="none-list">
+						<div class="mdil mdil-factory"></div>
+						No viseted any place :(
 					</div>
 				</ul>
-			</div>
-			<div class="nfc" v-on:click="manualActive"></div>
-			<div class="bottom-app-bar">
-				<span v-bind:class="{ 'mdil-active': selectedScreen=='screens[0]' }" class="mdil mdil-map-marker"
-				v-on:click="goPlace"></span>
-				<span v-bind:class="{ 'mdil-active': selectedScreen=='screens[1]' }"
-				class="mdil mdil-trophy"
-				v-on:click="goCoin"></span>
-				<span v-bind:class="{ 'mdil-active': selectedScreen=='screens[2]' }"
-				class="mdil mdil-clock"
-				v-on:click="goTimeLine"></span>
 			</div>
 		</div>
-		<script type="text/javascript" src="./vue.js"></script>
-		<script type="module" src="./src/app.js"></script>
-		<!-- <script type="module" src="./src/test.js"></script> -->
-	</body>
+		<div v-show="selectedPlace">
+			<ul class="tabs">
+				<li v-for="tab in tabs" v-bind:class="{active: tab === selectedTab}" v-on:click="onClickTab(tab)">
+					{{tab}}
+				</li>
+			</ul>
+			<ul class="card tasks" v-bind:class="{none: !completed.length}">
+				<span v-if="selectedTab==='TASKS'">
+					<li v-for="item in tasks">
+						<div>
+							<h2>{{item.name}}</h2>
+							<div class="img" v-bind:style="{ 'background-image': 'url(./images/80x80/' + item.img + ')' }"></div>
+						</div>
+						<p class="detail">{{item.detail}}</p>
+						<p class="tags">
+							<span v-for="tag in item.tags">#{{tag}} </span>
+						</p>
+					</li>
+				</span>
+				<span v-else>
+					<div v-if="completed.length">
+						<li v-for="item in completed">
+							{{item}}
+						</li>
+					</div>
+					<div v-else class="none-list">
+						<div class="mdil mdil-grid-off"></div>
+						No have a completed item
+					</div>
+				</span>
+			</ul>
+		</div>
+		<!-- <div class="nfc" v-on:click="manualActive"></div> -->
+		<div class="bottom-app-bar">
+			<!-- FIX TODO: mdil-active v-bind not work -->
+			<span v-bind:class="{ 'mdil-active': selectedScreen=='screens[0]' }" class="mdil mdil-map-marker" v-on:click="goPlace"></span>
+			<span v-bind:class="{ 'mdil-active': selectedScreen=='screens[1]' }" class="mdil mdil-trophy" v-on:click="goCoin"></span>
+			<span v-bind:class="{ 'mdil-active': selectedScreen=='screens[2]' }" class="mdil mdil-clock" v-on:click="goTimeLine"></span>
+		</div>
+	</div>
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="module" src="./src/app.js"></script>
+	<!-- <script type="module" src="./src/test.js"></script> -->
+</body>
+
 </html>
 
 <template id="card">
