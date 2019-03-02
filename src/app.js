@@ -11,6 +11,7 @@ new Vue({
 		screens: ['Place', 'Coin', 'TimeLine'],
 		selectedScreen: '',
 		places: [],
+		completedList: [],
 		selectedPlace: false,
 		tabs: ['TASKS', 'COMPLETED'],
 		selectedTab: '',
@@ -21,6 +22,7 @@ new Vue({
 		this.id = this.getUserID()
 		this.selectedScreen = this.screens[0]
 		this.selectedTab = this.tabs[0]
+		// this.randomChoice()
 		this.fetchCardList()
 	},
 	mounted() {
@@ -31,14 +33,15 @@ new Vue({
 			if ('nfc' in navigator) {
 				navigator.nfc.watch((msg) => {
 					placeModel.randomChoice().then(data => {
-						// const randomItem = data
-						alert(data)
-						placeModel.moveToCompleted(data)
+						this.fetchCompletedListCoin()
+						this.fetchCompletedListDay()
+						this.selectedScreen = this.screens[2]
 					})
-					this.fetchCompletedList()
-					this.selectedScreen = this.screens[2]
 				})
 			}
+		},
+		randomChoice() {
+			placeModel.randomChoice().then()
 		},
 		getUserID() {
 			identityModel.set()
@@ -56,22 +59,19 @@ new Vue({
 				this.tasks = data
 			})
 		},
-		fetchCompletedList(name) {
+		fetchCompleted(name) {
 			placeModel.getCompleted(name).then(data => {
 				this.completed = data
 			})
 		},
-		// fetchCompletedItem(name) {
-
-		// },
-		manualActive() {
-			placeModel.randomChoice().then(data => {
-				// const randomItem = data
-				console.log(data)
-				placeModel.moveToCompleted(data)
+		fetchCompletedList() {
+			placeModel.getCompletedList().then(data => {
+				if (this.selectedScreen === this.screens[1]) {
+					this.completedList = data.sort((a, b) => a.coin - b.coin)
+					return
+				}
+				this.completedList = data.sort((a, b) => a.visitedDate < b.visitedDate)
 			})
-			this.fetchCompletedList()
-			this.selectedScreen = this.screens[2]
 		},
 		getTotalCoin() {
 			placeModel.getTotalCoin().then(data => {
@@ -80,7 +80,7 @@ new Vue({
 		},
 		onClickCard(name) {
 			this.fetchTaskList(name)
-			this.fetchCompletedList(name)
+			this.fetchCompleted(name)
 			this.selectedScreen = name
 			this.selectedPlace = true
 		},
@@ -89,18 +89,20 @@ new Vue({
 		},
 		goPlace() {
 			if (!this.screen === 'Place') return
+			this.selectedTab = this.tabs[0]
 			this.selectedScreen = this.screens[0]
 			this.selectedPlace = false
 		},
 		goCoin() {
 			if (!this.screen === 'Coin') return
 			this.getTotalCoin()
+			this.fetchCompletedList()
 			this.selectedScreen = this.screens[1]
 			this.selectedPlace = false
 		},
 		goTimeLine() {
 			if (!this.screen === 'TimeLine') return
-			this.fetchCompletedList(name)
+			this.fetchCompletedList()
 			this.selectedScreen = this.screens[2]
 			this.selectedPlace = false
 		},

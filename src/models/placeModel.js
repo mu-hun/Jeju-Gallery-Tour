@@ -21,10 +21,10 @@ export default {
 			img: "profile.jpg",
 			detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.",
 			tags: ["want", "go", "home"],
-			completed: false
+			completed: true
 		}],
-		coin: 0,
-		visitedDate: "Day 15 Wed"
+		coin: 10,
+		visitedDate: 20170303
 	}, {
 		name: "Jayeonsarang",
 		img: "Jayeonsarang.jpeg",
@@ -33,10 +33,10 @@ export default {
 			img: "profile.jpg",
 			detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.",
 			tags: ["want", "go", "home"],
-			completed: false
+			completed: true
 		}],
-		coin: 0,
-		visitedDate: "Day 12 Fri"
+		coin: 10,
+		visitedDate: 20180204
 	}, {
 		name: "Gallery nori",
 		img: "nori.jpeg",
@@ -45,17 +45,17 @@ export default {
 			img: "profile.jpg",
 			detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis orci, pellentesque at venenatis a, mattis et neque. Aliquam interdum.",
 			tags: ["want", "go", "home"],
-			completed: false
+			completed: true
 		}],
-		coin: 0,
-		visitedDate: "Day 10 Mon"
+		coin: 10,
+		visitedDate: 20190301
 	}],
 	list() {
 		return Promise.resolve(this.data)
 	},
 	getPlace(name) {
 		return Promise.resolve(
-			this.data.filter(item => item.name === name)[0]
+			this.list().then(data => data.filter(item => item.name === name)[0])
 		)
 	},
 	getTasks(name) {
@@ -67,24 +67,32 @@ export default {
 		this.getTasks(place).then(data => data.filter(item => item.name === name).forEach(item => item.completed = true))
 	},
 	getCompleted(name) {
-		//FIX: TypeError: "(intermediate value).getCompleted(...).then is not a function"
-		if (!name) {
-			return Promise.resolve('')
-		}
+		if (!name) return Promise.resolve('')
 		return Promise.resolve(
-			this.getPlace(name).then(data => {
-				const filtered = data.items.filter(i => i.completed === true)
-				data.coin = filtered.length
-				return filtered
+			this.getPlace(name).then(data => data.items.filter(i => i.completed === true))
+		)
+	},
+	getCompletedList() {
+		return Promise.resolve(this.list()
+			.then(data => {
+				data.forEach(place => 
+						this.getCompleted(place.name).then(
+						filtered => {
+							if (place.coin >= filtered.length * 10) return
+							place.coin = filtered.length * 10
+						}
+					)
+				)
+				return data.filter(place => place.coin > 0) //??
 			})
 		)
 	},
 	getTotalCoin() {
 		return Promise.resolve(
-			this.data.reduce((acc, place) => {
+			this.list().then(data => data.reduce((acc, place) => {
 				acc += place.items.filter(item => item.completed === true).length
 				return acc
-			}, 0) * 10
+			}, 0) * 10)
 		)
 	},
 	getVisitedDate(name) {
@@ -96,6 +104,9 @@ export default {
 		const place = this.data[Math.floor(Math.random() * this.data.length)]
 		const selected = place.items[Math.floor(Math.random() * place.items.length)]
 		selected.completed = true
-		return Promise.resolve({place: place.name, name: selected})
+		return Promise.resolve({
+			place: place.name,
+			name: selected
+		})
 	}
 }

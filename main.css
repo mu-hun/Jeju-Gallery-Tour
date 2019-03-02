@@ -20,6 +20,7 @@ h2 {
 .card > li h3,
 .card > li h4,
 .none-list,
+.timeline div.right,
 p {
 	font-family: 'SpoqaHanSans';
 	font-weight: normal;
@@ -73,7 +74,21 @@ ul {
 }
 
 .tasks li {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 	background-color: rgb(137, 137, 137);
+}
+
+.tasks li > div.left {
+	flex-basis: 112px;
+}
+
+.tasks li > div.right {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto 16px;
 }
 
 .tasks h2 {
@@ -89,14 +104,13 @@ ul {
 }
 
 .tasks p {
-	margin-left: 112px;
 	margin-right: 16px;
 	font-size: 8px;
 	font-weight: 400;
 }
 
 .detail {
-	margin-top: 44px;
+	margin-top: 32px;
 }
 
 .tags {
@@ -107,7 +121,8 @@ ul {
 	cursor: unset;
 }
 
-.card li > * {
+.card.places li > *,
+.card.coin li > * {
 	position: absolute;
 }
 
@@ -166,13 +181,49 @@ ul.tabs {
 	background-color: var(--very-light);
 	margin-bottom: 14px;
 }
-
-.timeline {
-	color: var(--black)
-}
-
 div.timeline > .bar {
 	margin-top: 20px;
+}
+
+.date {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	color: var(--black);
+	margin: 16px auto 8px 28px;
+}
+
+.date .left {
+	flex-basis: 52px;
+}
+
+.date .date-srt {
+	font-family: 'Inter UI';
+	font-size: 8px;
+	margin-bottom: 16px;
+}
+
+.timeline .img {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background-size: contain;
+}
+
+.timeline .right {
+	font-size: 12px;
+	margin-top: 21px;
+}
+
+.timeline h2 {
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.item-list {
+	font-weight: 300;
 }
 
 .nfc {
