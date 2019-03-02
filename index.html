@@ -12,108 +12,20 @@
 <body>
 	<div id="app">
 		<h1>{{selectedScreen}}</h1>
-		<!-- <card v-bind:items="places"></card> -->
 		<div v-show="!selectedPlace">
-			<ul v-show="selectedScreen===screens[0]" class="card places">
-				<li v-for="place in places" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }"
-				 v-on:click="onClickCard(place.name)">
-					<h2>{{place.name}}</h2>
-				</li>
-			</ul>
-			<div v-show="selectedScreen===screens[1]">
-				<div class="user-id">{{id}}</div>
-				<div class="total-coin">{{totalCoin}} C</div>
-				<div class="bar"></div>
-				<span v-if="completedList.length">
-				<ul class="card coin">
-					<li v-for="(place, index) in completedList" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }">
-						<div class="details">
-							<h3>#{{index+1}}</h3>
-							<h4>{{place.coin}}</h4>
-						</div>
-						<h2>{{place.name}}</h2>
-					</li>
-				</ul>
-				</span>
-				<div v-else class="none-list">
-					<div class="mdil mdil-factory"></div>
-					Not yet viseted any place :(
-				</div>
+			<div v-show="selectedScreen===screens[0]">
+				<place :data="places" v-on:@click="onClickCard"></place>
 			</div>
-			<div v-show="selectedScreen===screens[2]" class="timeline">
-				<div class="bar"></div>
-				<ul>
-					<span v-if="completedList.length">
-					<li v-for="place in completedList" class="date">
-						<div class="left">
-							<div class="date-srt">{{place.visitedDate}}</div>
-							<div class="img" v-bind:style="{ 'background-image': 'url(./images/36x36/' + place.img + ')' }"></div>
-						</div>
-						<div class="right">
-							<h2>{{place.name}}</h2>
-							<ul class="item-list">
-								<li v-for="item in place.items">
-									<span>{{item.name}}</span>
-								</li>
-							</ul>
-						</div>
-					</li>
-					</span>
-					<div v-else class="none-list">
-						<div class="mdil mdil-factory"></div>
-						Not yet viseted any place :(
-					</div>
-				</ul>
+			<div v-show="selectedScreen===screens[1]">
+				<coin :id="id" :total="totalCoin" :list="completedList"></coin>
+			</div>
+			<div v-show="selectedScreen===screens[2]">
+				<timeline :list="completedList"></timeline>
 			</div>
 		</div>
 		<div v-show="selectedPlace">
-			<ul class="tabs">
-				<li v-for="tab in tabs" v-bind:class="{active: tab === selectedTab}" v-on:click="onClickTab(tab)">
-					{{tab}}
-				</li>
-			</ul>
-			<ul class="card tasks">
-				<span v-if="selectedTab==='TASKS'">
-					<span v-if="tasks.length">
-					<li v-for="item in tasks">
-						<div class="left">
-							<h2>{{item.name}}</h2>
-							<div class="img" v-bind:style="{ 'background-image': 'url(./images/80x80/' + item.img + ')' }"></div>
-						</div>
-						<div class="right">
-							<p class="detail">{{item.detail}}</p>
-							<p class="tags">
-								<span v-for="tag in item.tags">#{{tag}} </span>
-							</p>
-						</div>
-					</li>
-					</span>
-					<div v-else class="none-list">
-						<div class="mdil mdil-clipboard-check"></div>
-							Tasks is all completed
-					</div>
-				</span>
-				<span v-else>
-					<div v-if="completed.length">
-						<li v-for="item in completed">
-							<div class="left">
-								<h2>{{item.name}}</h2>
-								<div class="img" v-bind:style="{ 'background-image': 'url(./images/80x80/' + item.img + ')' }"></div>
-							</div>
-							<div class="right">
-								<p class="detail">{{item.detail}}</p>
-								<p class="tags">
-								<span v-for="tag in item.tags">#{{tag}}</span>
-								</p>
-							</div>
-						</li>
-					</div>
-					<div v-else class="none-list">
-						<div class="mdil mdil-alert"></div>
-						No have a completed item
-					</div>
-				</span>
-			</ul>
+			<tab :selected="selectedTab" :tabs="tabs" v-on:@switch="onClickTab"></tab>
+			<task :selected="selectedTab" :tasks="tasks" :completed="completed"></task>
 		</div>
 		<!-- <div class="nfc" v-on:click="manualActive"></div> -->
 		<div class="bottom-app-bar">
@@ -130,8 +42,104 @@
 
 </html>
 
-<template id="card">
-	<div v-for="place in places" class="card" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }">
-		<h2>{{place.name}}</h2>
+<template id="place">
+	<ul class="card place">
+		<li v-for="place in places" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }"
+		 v-on:click="onClickCard(place.name)">
+			<h2>{{place.name}}</h2>
+		</li>
+	</ul>
+</template>
+
+<template id="coin">
+	<div>
+		<div class="user-id">{{getId}}</div>
+		<div class="total-coin">{{total}} C</div>
+		<div class="bar"></div>
+		<ul v-if="list.length" class="card coin">
+			<li v-for="(place, index) in list" v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./images/' + place.img + ')' }">
+				<div class="details">
+					<h3>#{{index+1}}</h3>
+					<h4>{{place.coin}}</h4>
+				</div>
+				<h2>{{place.name}}</h2>
+			</li>
+		</ul>
+		<div v-else class="none-list">
+			<div class="mdil mdil-factory"></div>
+			Not yet viseted any place :(
+		</div>
 	</div>
+</template>
+
+<template id="timeline">
+	<ul class="timeline">
+		<div class="bar"></div>
+		<div v-if="getList.length">
+			<li v-for="place in getList">
+				<div class="left">
+					<div class="date-srt">{{place.visitedDate}}</div>
+					<div class="img" v-bind:style="{ 'background-image': 'url(./images/36x36/' + place.img + ')' }"></div>
+				</div>
+				<div class="right">
+					<h2>{{place.name}}</h2>
+					<ul class="item-list">
+						<li v-for="item in place.items">
+							<span>{{item.name}}</span>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</div>
+		<div v-else class="none-list">
+			<div class="mdil mdil-factory"></div>
+			Not yet viseted any place :(
+		</div>
+	</ul>
+</template>
+
+<template id="tab">
+	<ul class="tabs">
+		<li v-for="tab in tabs" v-bind:class="{active: tab === selected}" v-on:click="onClickTab(tab)">
+			{{tab}}
+		</li>
+	</ul>
+</template>
+
+<template id="task">
+	<ul class="card tasks">
+		<span v-if="selected==='TASKS'">
+			<task-li :list="tasks"></task-li>
+		</span>
+		<span v-else>
+			<task-li :list="completed"></task-li>
+		</span>
+	</ul>
+</template>
+
+<template id="task-li">
+	<div>
+		<div v-if="list.length">
+			<li v-for="item in list">
+				<div class="left">
+					<h2>{{item.name}}</h2>
+					<div class="img" v-bind:style="{ 'background-image': 'url(./images/80x80/' + item.img + ')' }"></div>
+				</div>
+				<div class="right">
+					<p class="detail">{{item.detail}}</p>
+					<p class="tags">
+						<span v-for="tag in item.tags">#{{tag}}</span>
+					</p>
+				</div>
+			</li>
+		</div>
+		<div v-else class="none-list">
+			<div class="mdil mdil-alert"></div>
+			No have a item
+		</div>
+	</div>
+</template>
+
+<template id="bottom-app-bar">
+<!-- TODO -->
 </template>

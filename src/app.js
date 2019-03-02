@@ -1,7 +1,13 @@
+// TODO: CamleCase 로 바꾸기
 import placeModel from './models/placeModel.js'
 import identityModel from './models/identityModel.js'
 
-// import cardComponent from './components/cardComponent.js'
+import PlaceComponent from './components/PlaceComponent.js'
+import CoinComponent from './components/CoinComponent.js'
+import TimelineComponent from './components/timelineComponent.js'
+import TabComponent from './components/TabComponent.js'
+import TaskComponent from './components/TaskComponent.js'
+// import TaskLiComponent from './components/TaskLiComponent.js';
 
 new Vue({
 	el: "#app",
@@ -17,6 +23,13 @@ new Vue({
 		selectedTab: '',
 		tasks: [],
 		completed: [],
+	},
+	components: {
+		'place': PlaceComponent,
+		'coin': CoinComponent,
+		'timeline': TimelineComponent,
+		'tab': TabComponent,
+		'task': TaskComponent
 	},
 	created() {
 		this.id = this.getUserID()

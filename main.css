@@ -65,7 +65,7 @@ ul {
 	color: var(--f-one-white);
 }
 
-.card.places > li {
+.card.place > li {
 	cursor: pointer;
 }
 
@@ -121,7 +121,7 @@ ul {
 	cursor: unset;
 }
 
-.card.places li > *,
+.card.place li > *,
 .card.coin li > * {
 	position: absolute;
 }
@@ -181,11 +181,11 @@ ul.tabs {
 	background-color: var(--very-light);
 	margin-bottom: 14px;
 }
-div.timeline > .bar {
+.timeline > .bar {
 	margin-top: 20px;
 }
 
-.date {
+.timeline > div > li {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
@@ -193,21 +193,21 @@ div.timeline > .bar {
 	margin: 16px auto 8px 28px;
 }
 
-.date .left {
+.timeline > div > li .left {
 	flex-basis: 52px;
 }
 
-.date .date-srt {
+.timeline > div > li .date-srt {
 	font-family: 'Inter UI';
 	font-size: 8px;
 	margin-bottom: 16px;
 }
 
-.timeline .img {
+.timeline > div > li .img {
 	width: 36px;
 	height: 36px;
 	border-radius: 50%;
-	background-size: contain;
+	background-size: cover;
 }
 
 .timeline .right {
