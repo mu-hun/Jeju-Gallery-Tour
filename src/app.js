@@ -4,7 +4,7 @@ import identityModel from './models/identityModel.js'
 
 import PlaceComponent from './components/PlaceComponent.js'
 import CoinComponent from './components/CoinComponent.js'
-import TimelineComponent from './components/timelineComponent.js'
+import TimelineComponent from './components/TimeLineComponent.js'
 import TabComponent from './components/TabComponent.js'
 import TaskComponent from './components/TaskComponent.js'
 // import TaskLiComponent from './components/TaskLiComponent.js';
