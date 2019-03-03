@@ -1,13 +1,11 @@
-// TODO: CamleCase 로 바꾸기
-import placeModel from './models/placeModel.js'
-import identityModel from './models/identityModel.js'
+import PlaceModel from './models/PlaceModel.js'
+import IdentityModel from './models/IdentityModel.js'
 
 import PlaceComponent from './components/PlaceComponent.js'
 import CoinComponent from './components/CoinComponent.js'
 import TimelineComponent from './components/TimeLineComponent.js'
 import TabComponent from './components/TabComponent.js'
 import TaskComponent from './components/TaskComponent.js'
-// import TaskLiComponent from './components/TaskLiComponent.js';
 
 new Vue({
 	el: "#app",
@@ -45,7 +43,7 @@ new Vue({
 		triggerNFC() {
 			if ('nfc' in navigator) {
 				navigator.nfc.watch((msg) => {
-					placeModel.randomChoice().then(data => {
+					PlaceModel.randomChoice().then(data => {
 						this.fetchCompletedListCoin()
 						this.fetchCompletedListDay()
 						this.selectedScreen = this.screens[2]
@@ -54,31 +52,31 @@ new Vue({
 			}
 		},
 		randomChoice() {
-			placeModel.randomChoice().then()
+			PlaceModel.randomChoice().then()
 		},
 		getUserID() {
-			identityModel.set()
-			identityModel.get().then(data => {
+			IdentityModel.set()
+			IdentityModel.get().then(data => {
 				this.id = data
 			})
 		},
 		fetchCardList() {
-			placeModel.list().then(data => {
+			PlaceModel.list().then(data => {
 				this.places = data
 			})
 		},
 		fetchTaskList(name) {
-			placeModel.getTasks(name).then(data => {
+			PlaceModel.getTasks(name).then(data => {
 				this.tasks = data
 			})
 		},
 		fetchCompleted(name) {
-			placeModel.getCompleted(name).then(data => {
+			PlaceModel.getCompleted(name).then(data => {
 				this.completed = data
 			})
 		},
 		fetchCompletedList() {
-			placeModel.getCompletedList().then(data => {
+			PlaceModel.getCompletedList().then(data => {
 				if (this.selectedScreen === this.screens[1]) {
 					this.completedList = data.sort((a, b) => a.coin - b.coin)
 					return
@@ -87,7 +85,7 @@ new Vue({
 			})
 		},
 		getTotalCoin() {
-			placeModel.getTotalCoin().then(data => {
+			PlaceModel.getTotalCoin().then(data => {
 				this.totalCoin = data
 			})
 		},
