@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="main.css" type="text/css">
 	<link rel="stylesheet" href="./fonts/mdi/css/materialdesignicons-light.min.css" />
+	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -118,7 +119,6 @@
 </template>
 
 <template id="task-li">
-	<div>
 		<div v-if="list.length">
 			<li v-for="item in list">
 				<div class="left">
@@ -137,7 +137,6 @@
 			<div class="mdil mdil-alert"></div>
 			No have a item
 		</div>
-	</div>
 </template>
 
 <template id="bottom-app-bar">
