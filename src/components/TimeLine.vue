@@ -1,0 +1,88 @@
+<template>
+  <ul>
+    <div class="bar"></div>
+    <div v-if="getList.length">
+      <li v-for="place in getList">
+        <div class="left">
+          <div class="date-srt">{{place.visitedDate}}</div>
+          <div
+            class="img"
+            v-bind:style="{ 'background-image': 'url(./img/36x36/' + place.img + ')' }"
+          ></div>
+        </div>
+        <div class="right">
+          <h2>{{place.name}}</h2>
+          <ul class="item-list">
+            <li v-for="item in place.items">
+              <span>{{item.name}}</span>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </div>
+    <div v-else class="none-list">
+      <div class="mdil mdil-factory"></div>Not yet viseted any place :(
+    </div>
+  </ul>
+</template>
+
+<script>
+export default {
+	name: 'TimeLine',
+	props: ['list'],
+	computed: {
+		getList: function() {
+			return this.list
+		},
+	},
+}
+</script>
+
+<style scoped>
+.bar {
+	margin-top: 20px;
+}
+
+ul > div > li {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	color: var(--black);
+	margin: 1rem auto 0.5rem 1.75rem;
+}
+
+.left {
+	flex-basis: 52px;
+}
+
+.date-srt {
+	font-family: 'Inter UI';
+	font-size: 8px;
+	margin-bottom: 1rem;
+}
+
+.img {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background-size: cover;
+}
+
+.right {
+	font-size: 12px;
+	margin-top: 21px;
+	font-family: 'SpoqaHanSans';
+}
+
+h2 {
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.item-list {
+	font-weight: 300;
+}
+</style>
+

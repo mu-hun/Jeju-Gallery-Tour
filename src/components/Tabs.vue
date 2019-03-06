@@ -1,0 +1,46 @@
+<template>
+	<ul>
+		<li v-for="tab in tabs" v-bind:class="{active: tab === selected}" v-on:click="onClickTab(tab)">
+			{{tab}}
+		</li>
+	</ul>
+</template>
+
+<script>
+export default {
+	name: 'Tabs',
+	props: ['selected', 'tabs'],
+	methods: {
+		onClickTab(tab) {
+			this.$emit('@switch', tab)
+		}
+	}
+}
+</script>
+
+<style scoped>
+	ul {
+		display: flex;
+		font-family: 'Libre Franklin';
+		box-shadow: 0 10px 12px -0.5rem #0000006e;
+	}
+
+	li {
+		display: inline-block;
+		width: 50%;
+		font-size: 14px;
+		font-weight: 800;
+		letter-spacing: 1.3px;
+		padding: 1rem;
+		text-align: center;
+		box-sizing: border-box;
+		color: var(--black);
+		cursor: pointer;
+	}
+
+	li.active {
+		border-bottom: 2.5px solid var(--active-tab);
+		cursor: unset;
+	}
+</style>
+
