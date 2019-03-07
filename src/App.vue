@@ -17,25 +17,7 @@
       <tabs :selected="selectedTab" :tabs="tabs" v-on:@switch="onClickTab"></tabs>
       <tasks :selected="selectedTab" :tasks="tasks" :completed="completed"></tasks>
     </div>
-    <!-- <div class="nfc" v-on:click="manualActive"></div> -->
-    <div class="bottom-app-bar">
-      <!-- FIX TODO: mdil-active v-bind not work -->
-      <span
-        v-bind:class="{ 'mdil-active': selectedScreen=='Place' }"
-        class="mdil mdil-map-marker"
-        v-on:click="goPlace"
-      ></span>
-      <span
-        v-bind:class="{ 'mdil-active': selectedScreen==='Coin' }"
-        class="mdil mdil-trophy"
-        v-on:click="goCoin"
-      ></span>
-      <span
-        v-bind:class="{ 'mdil-active': selectedScreen=='TimeLine' }"
-        class="mdil mdil-clock"
-        v-on:click="goTimeLine"
-      ></span>
-    </div>
+	<nav-bar :selected="selectedScreen" :screens="screens" v-on:@place="goPlace" v-on:@coin="goCoin" v-on:@timeline="goTimeLine"></nav-bar>
   </div>
 </template>
 
@@ -48,6 +30,7 @@ import Tasks from './components/Tasks.vue'
 import Tabs from './components/Tabs.vue'
 import Coin from './components/Coin.vue'
 import TimeLine from './components/TimeLine.vue'
+import NavBar from './components/NavBar.vue'
 
 export default {
   name: "app",
@@ -63,7 +46,7 @@ export default {
 		tabs: ['TASKS', 'COMPLETED'],
 		selectedTab: '',
 		tasks: [],
-		completed: [],
+		completed: []
 	  }
   },
   components: {
@@ -71,7 +54,8 @@ export default {
 	Tasks,
 	Coin,
 	TimeLine,
-	Tabs	
+	Tabs,
+	NavBar
   },
   created() {
 		this.id = this.getUserID()
@@ -132,6 +116,10 @@ export default {
 			PlaceModel.getTotalCoin().then(data => {
 				this.totalCoin = data
 			})
+		},
+		onClickNav(name) {
+			const way = {'Place': this.goPlace(), 'Coin': this.goCoin(), 'TimeLine': this.goTimeLine()}
+			way[name]
 		},
 		onClickCard(name) {
 			this.fetchTaskList(name)
@@ -285,30 +273,4 @@ ul {
 	margin-bottom: 14px;
 }
 
-.bottom-app-bar {
-	color: var(--black);
-	display: flex;
-	position: fixed;
-	bottom: 0;
-	flex-direction: row;
-	justify-content: space-around;
-	box-sizing: border-box;
-	width: 100%;
-	height: 3.5em;
-	background-color: var(--f-one-white);
-	box-shadow: 0 1px 3px 0 #00000033, 0 2px 1px -1px #0000001e, 0 1px 1px 0 #00000023;
-}
-
-.mdil {
-	margin: 1rem auto;
-	font-size: 1.5em;
-	-webkit-text-stroke: .7px var(--black);
-	color: var(--disable);
-	cursor: pointer;
-}
-
-.mdil-active {
-	color: var(--black);
-	cursor: unset;
-}
 </style>
