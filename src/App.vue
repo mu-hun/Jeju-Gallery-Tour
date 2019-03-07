@@ -214,8 +214,9 @@ noscript {
 }
 
 h1,
-h2 {
-	font-family: 'Inter UI';
+h2,
+.date-srt {
+	font-family: 'Inter', 'Sans-serif';
 }
 
 .user-id,
@@ -223,8 +224,9 @@ h2 {
 .card > li h3,
 .card > li h4,
 .none-list,
+.right,
 p {
-	font-family: 'SpoqaHanSans';
+	font-family: 'Spoqa Han Sans', 'Sans-serif';
 	font-weight: normal;
 }
 

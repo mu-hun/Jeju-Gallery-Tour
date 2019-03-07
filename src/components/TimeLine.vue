@@ -56,7 +56,6 @@ ul > div > li {
 }
 
 .date-srt {
-	font-family: 'Inter UI';
 	font-size: 0.5em;
 	margin-bottom: 1em;
 }
@@ -71,7 +70,6 @@ ul > div > li {
 .right {
 	font-size: 12px;
 	margin-top: 21px;
-	font-family: 'SpoqaHanSans';
 }
 
 h2 {
