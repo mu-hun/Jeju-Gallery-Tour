@@ -33,12 +33,12 @@ export default {
 
 <style scoped>
 .card > li h3 {
-	margin-top: 1rem;
+	margin-top: 1em;
 	margin-bottom: 5px;
-	font-size: 0.75rem;
+	font-size: 12px;
 }
 
 .card > li h4 {
-	font-size: 1.5rem;
+	font-size: 1.5em;
 }
 </style>

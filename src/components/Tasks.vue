@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
 ul {
-	margin-top: 1rem;
+	margin-top: 1em;
 }
 </style>
 

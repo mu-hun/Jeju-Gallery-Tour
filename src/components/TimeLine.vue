@@ -48,7 +48,7 @@ ul > div > li {
 	flex-direction: row;
 	justify-content: flex-start;
 	color: var(--black);
-	margin: 1rem auto 0.5rem 1.75rem;
+	margin: 1em auto 0.5em 28px;
 }
 
 .left {
@@ -57,8 +57,8 @@ ul > div > li {
 
 .date-srt {
 	font-family: 'Inter UI';
-	font-size: 8px;
-	margin-bottom: 1rem;
+	font-size: 0.5em;
+	margin-bottom: 1em;
 }
 
 .img {

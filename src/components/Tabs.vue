@@ -22,7 +22,7 @@ export default {
 	ul {
 		display: flex;
 		font-family: 'Libre Franklin';
-		box-shadow: 0 10px 12px -0.5rem #0000006e;
+		box-shadow: 0 10px 12px -0.5em #0000006e;
 	}
 
 	li {
@@ -31,7 +31,7 @@ export default {
 		font-size: 14px;
 		font-weight: 800;
 		letter-spacing: 1.3px;
-		padding: 1rem;
+		padding: 1em;
 		text-align: center;
 		box-sizing: border-box;
 		color: var(--black);

@@ -39,8 +39,8 @@ export default {
 	display: flex;
 	flex-direction: column;
 	/* justify-content: flex-start; */
-	margin-left: 1rem;
-	margin-right: 1rem;
+	margin-left: 1em;
+	margin-right: 1em;
 	margin-top: 44px;
 	height: 80px;
 	position: relative;
@@ -60,7 +60,7 @@ h2 {
 }
 
 p {
-	font-size: 0.5rem;
+	font-size: 0.5em;
 	font-weight: 400;
 }
 

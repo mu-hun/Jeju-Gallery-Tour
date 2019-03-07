@@ -174,12 +174,6 @@ export default {
 	--very-light: rgba(216, 216, 216, 0.5);
 }
 
-noscript {
-  display: block;
-  margin-bottom: 1em;
-  margin-top: 1em;
-}
-
 html {
   box-sizing: border-box;
 }
@@ -213,6 +207,12 @@ body {
 	font-size: 16px;
 }
 
+noscript {
+  display: block;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
 h1,
 h2 {
 	font-family: 'Inter UI';
@@ -231,7 +231,7 @@ p {
 h1 {
 	margin-top: 19px;
 	margin-bottom: 20px;
-	font-size: 2.25rem;
+	font-size: 36px;
 	font-weight: bold;
 }
 
@@ -247,7 +247,7 @@ h1, .user-id, .total-coin {
 }
 
 .total-coin {
-	font-size: 1.5rem;
+	font-size: 1.5em;
 }
 
 ul {
@@ -256,8 +256,8 @@ ul {
 
 .card li {
 	height: 140px;
-	margin: 0 28px 1rem;
-	padding-left: 1rem;
+	margin: 0 26px 1em;
+	padding-left: 1em;
 	opacity: 0.92;
 	box-shadow: 0 1px 4px 0 #00000080;
 	background-size: cover;
@@ -278,7 +278,7 @@ ul {
 
 .bar {
 	width: 100%;
-	height: 0.5rem;
+	height: 0.5em;
 	background-color: var(--very-light);
 	margin-bottom: 14px;
 }
@@ -292,14 +292,14 @@ ul {
 	justify-content: space-around;
 	box-sizing: border-box;
 	width: 100%;
-	height: 3.5rem;
+	height: 3.5em;
 	background-color: var(--f-one-white);
 	box-shadow: 0 1px 3px 0 #00000033, 0 2px 1px -1px #0000001e, 0 1px 1px 0 #00000023;
 }
 
 .mdil {
 	margin: 1rem auto;
-	font-size: 1.5rem;
+	font-size: 1.5em;
 	-webkit-text-stroke: .7px var(--black);
 	color: var(--disable);
 	cursor: pointer;
