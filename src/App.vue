@@ -174,8 +174,42 @@ export default {
 	--very-light: rgba(216, 216, 216, 0.5);
 }
 
+noscript {
+  display: block;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+p,
+pre,
+blockquote,
+figure,
+hr {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-	margin: 0;
 	font-size: 16px;
 }
 
@@ -196,6 +230,7 @@ p {
 
 h1 {
 	margin-top: 19px;
+	margin-bottom: 20px;
 	font-size: 2.25rem;
 	font-weight: bold;
 }
@@ -217,7 +252,6 @@ h1, .user-id, .total-coin {
 
 ul {
 	list-style-type: none;
-	padding: 0
 }
 
 .card li {
@@ -240,6 +274,13 @@ ul {
 
 .card.bg li > * {
 	position: absolute;
+}
+
+.bar {
+	width: 100%;
+	height: 0.5rem;
+	background-color: var(--very-light);
+	margin-bottom: 14px;
 }
 
 .bottom-app-bar {

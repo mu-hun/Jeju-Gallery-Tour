@@ -39,7 +39,6 @@ export default {
 }
 
 .card > li h4 {
-	margin: 0;
 	font-size: 1.5rem;
 }
 </style>

@@ -75,7 +75,6 @@ ul > div > li {
 }
 
 h2 {
-	margin-top: 0;
 	margin-bottom: 5px;
 	font-size: 12px;
 	font-weight: normal;

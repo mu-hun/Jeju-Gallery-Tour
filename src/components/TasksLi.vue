@@ -49,6 +49,7 @@ export default {
 h2 {
 	font-size: 1em;
 	font-weight: 600;
+	margin-top: 1em;
 	margin-bottom: 9px;
 }
 
@@ -59,7 +60,6 @@ h2 {
 }
 
 p {
-	margin: 0;
 	font-size: 0.5rem;
 	font-weight: 400;
 }

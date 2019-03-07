@@ -1,5 +1,5 @@
 <template>
-	<ul class="card tasks">
+	<ul class="card">
 		<span v-if="selected==='TASKS'">
 			<task-li :list="tasks"></task-li>
 		</span>
@@ -20,4 +20,10 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+ul {
+	margin-top: 1rem;
+}
+</style>
 
