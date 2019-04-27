@@ -1,22 +1,22 @@
 <template>
 	<ul class="card">
-		<span v-if="selected==='TASKS'">
-			<task-li :list="tasks"></task-li>
-		</span>
-		<span v-else>
-			<task-li :list="completed"></task-li>
-		</span>
+		<task-li :list="dict[selected]"></task-li>
 	</ul>
 </template>
 
 <script>
-import TaskLi from '@/components/TasksLi.vue'
+import TaskLi from './TasksLi.vue'
 
 export default {
 	name: 'Tasks',
 	props: ['selected', 'tasks', 'completed'],
 	components: {
 		TaskLi
+	},
+	data() {
+		return {
+			dict: {'TASKS': this.tasks, 'COMPLETED': this.completed}
+		}
 	}
 }
 </script>

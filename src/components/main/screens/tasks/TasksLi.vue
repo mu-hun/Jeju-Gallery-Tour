@@ -68,14 +68,5 @@ p {
 	position: absolute;
 	bottom: 0;
 }
-
-.none-list {
-	text-align: center;
-}
-
-.none-list > .mdil {
-	font-size: 36px;
-	color: var(--disable);
-}
 </style>
 

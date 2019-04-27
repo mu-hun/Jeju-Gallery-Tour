@@ -50,13 +50,7 @@ export default {
 	box-shadow: 0 1px 3px 0 #00000033, 0 2px 1px -1px #0000001e, 0 1px 1px 0 #00000023;
 }
 
-.mdil {
-	margin: 1rem auto;
-	font-size: 1.5em;
-	-webkit-text-stroke: .7px var(--black);
-	color: var(--disable);
-	cursor: pointer;
-}
+
 
 .mdil-active {
 	color: var(--black);
