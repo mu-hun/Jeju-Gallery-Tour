@@ -26,15 +26,16 @@
   </ul>
 </template>
 
-<script>
-export default {
-	name: 'TimeLine',
-	props: ['list'],
-	computed: {
-		getList: function() {
-			return this.list
-		},
-	},
+<script lang="ts">
+import { Vue, Prop, Component } from 'vue-property-decorator'
+
+@Component
+export default class TimeLine extends Vue {
+	@Prop(Array) readonly list!: place[]
+
+	get getList() {
+		return this.list
+	}
 }
 </script>
 

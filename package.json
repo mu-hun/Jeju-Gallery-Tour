@@ -1,22 +1,27 @@
 {
-	"name": "vue-template",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"serve": "vue-cli-service serve",
-		"build": "vue-cli-service build"
-	},
-	"dependencies": {
-		"@mdi/light-font": "^0.2.63",
-		"inter-ui": "^3.3.4",
-		"register-service-worker": "^1.5.2",
-		"spoqa-han-sans": "^2.1.2",
-		"typeface-libre-franklin": "0.0.54",
-		"vue": "^2.6.6"
-	},
-	"devDependencies": {
-		"@vue/cli-plugin-pwa": "^3.4.0",
-		"@vue/cli-service": "^3.4.0",
-		"vue-template-compiler": "^2.5.21"
-	}
+  "name": "vue-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@mdi/light-font": "^0.2.63",
+    "inter-ui": "^3.3.4",
+    "register-service-worker": "^1.5.2",
+    "spoqa-han-sans": "^2.1.2",
+    "typeface-libre-franklin": "0.0.54",
+    "vue": "^2.6.6",
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-pwa": "^3.4.0",
+    "@vue/cli-plugin-typescript": "^3.8.1",
+    "@vue/cli-service": "^3.4.0",
+    "ts-loader": "^6.0.2",
+    "typescript": "^3.5.2",
+    "vue-template-compiler": "^2.5.21"
+  }
 }

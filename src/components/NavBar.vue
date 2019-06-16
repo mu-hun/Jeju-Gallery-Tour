@@ -18,19 +18,27 @@
     </div>
 </template>
 
-<script>
-export default {
-	props: ['selected', 'screens'],
-	methods: {
-		goPlace() {
-			this.$emit('@place')
-		},
-		goCoin() {
-			this.$emit('@coin')
-		},
-		goTimeLine() {
-			this.$emit('@timeline')
-		}
+<script lang="ts">
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
+
+@Component
+export default class NavBar extends Vue {
+	@Prop(String) readonly selected!: string
+	screens: string[] = ['Place', 'Coin', 'TimeLine']
+	
+	@Emit('@place')
+	goPlace(): void {
+		return
+	}
+
+	@Emit('@coin')
+	goCoin(): void {
+		return
+	}
+
+	@Emit('@timeline')
+	goTimeLine(): void {
+		return
 	}
 }
 </script>

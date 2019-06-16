@@ -17,13 +17,20 @@
       <tabs :selected="selectedTab" :tabs="tabs" v-on:@switch="onClickTab"></tabs>
       <tasks :selected="selectedTab" :tasks="tasks" :completed="completed"></tasks>
     </div>
-	<nav-bar :selected="selectedScreen" :screens="screens" v-on:@place="goPlace" v-on:@coin="goCoin" v-on:@timeline="goTimeLine"></nav-bar>
+    <nav-bar
+      :selected="selectedScreen"
+      v-on:@place="goPlace"
+      v-on:@coin="goCoin"
+      v-on:@timeline="goTimeLine"
+    ></nav-bar>
   </div>
 </template>
 
-<script>
-import PlaceModel from './models/PlaceModel.js'
-import IdentityModel from './models/IdentityModel.js'
+<script lang="ts">
+import { Vue, Component, Model } from 'vue-property-decorator'
+
+import PlaceModel from './models/PlaceModel'
+import IdentityModel from './models/IdentityModel'
 
 import Place from './components/Place.vue'
 import Tasks from './components/Tasks.vue'
@@ -32,125 +39,101 @@ import Coin from './components/Coin.vue'
 import TimeLine from './components/TimeLine.vue'
 import NavBar from './components/NavBar.vue'
 
-export default {
-  name: "app",
-  data() {
-	  return {
-		id: '',
-		totalCoin: '',
-		screens: ['Place', 'Coin', 'TimeLine'],
-		selectedScreen: '',
-		places: [],
-		completedList: [],
-		selectedPlace: false,
-		tabs: ['TASKS', 'COMPLETED'],
-		selectedTab: '',
-		tasks: [],
-		completed: []
-	  }
-  },
-  components: {
-	Place,
-	Tasks,
-	Coin,
-	TimeLine,
-	Tabs,
-	NavBar
-  },
-  created() {
-		this.id = this.getUserID()
+@Component({
+	components: {
+		Place,
+		Tasks,
+		Coin,
+		TimeLine,
+		Tabs,
+		NavBar,
+	}
+})
+
+export default class App extends Vue {
+	id: number = 0
+	totalCoin: number = 0
+	screens: string[] = ['Place', 'Coin', 'TimeLine']
+	selectedScreen: string = ''
+	places: place[] = []
+	completedList: place[] = []
+	selectedPlace: boolean = false
+	tabs: string[] = ['TASKS', 'COMPLETED']
+	selectedTab: string = ''
+	tasks: item[] = []
+	completed: item[] = []
+
+	created() {
+		this.getUserID()
 		this.selectedScreen = this.screens[0]
 		this.selectedTab = this.tabs[0]
-		// this.randomChoice()
 		this.fetchCardList()
-	},
-	mounted() {
-		this.triggerNFC()
-	},
-	methods: {
-		triggerNFC() {
-			if ('nfc' in navigator) {
-				navigator.nfc.watch((msg) => {
-					PlaceModel.randomChoice().then(data => {
-						this.fetchCompletedListCoin()
-						this.fetchCompletedListDay()
-						this.selectedScreen = this.screens[2]
-					})
-				})
-			}
-		},
-		randomChoice() {
-			PlaceModel.randomChoice().then()
-		},
-		getUserID() {
-			IdentityModel.set()
-			IdentityModel.get().then(data => {
-				this.id = data
-			})
-		},
-		fetchCardList() {
-			PlaceModel.list().then(data => {
-				this.places = data
-			})
-		},
-		fetchTaskList(name) {
-			PlaceModel.getTasks(name).then(data => {
-				this.tasks = data
-			})
-		},
-		fetchCompleted(name) {
-			PlaceModel.getCompleted(name).then(data => {
-				this.completed = data
-			})
-		},
-		fetchCompletedList() {
-			PlaceModel.getCompletedList().then(data => {
-				if (this.selectedScreen === this.screens[1]) {
-					this.completedList = data.sort((a, b) => a.coin - b.coin)
-					return
-				}
-				this.completedList = data.sort((a, b) => a.visitedDate < b.visitedDate)
-			})
-		},
-		getTotalCoin() {
-			PlaceModel.getTotalCoin().then(data => {
-				this.totalCoin = data
-			})
-		},
-		onClickNav(name) {
-			const way = {'Place': this.goPlace(), 'Coin': this.goCoin(), 'TimeLine': this.goTimeLine()}
-			way[name]
-		},
-		onClickCard(name) {
-			this.fetchTaskList(name)
-			this.fetchCompleted(name)
-			this.selectedScreen = name
-			this.selectedPlace = true
-		},
-		onClickTab(tab) {
-			this.selectedTab = tab
-		},
-		goPlace() {
-			if (!this.screen === 'Place') return
-			this.selectedTab = this.tabs[0]
-			this.selectedScreen = this.screens[0]
-			this.selectedPlace = false
-		},
-		goCoin() {
-			if (!this.screen === 'Coin') return
-			this.getTotalCoin()
-			this.fetchCompletedList()
-			this.selectedScreen = this.screens[1]
-			this.selectedPlace = false
-		},
-		goTimeLine() {
-			if (!this.screen === 'TimeLine') return
-			this.fetchCompletedList()
-			this.selectedScreen = this.screens[2]
-			this.selectedPlace = false
-		},
 	}
-};
+	getUserID() {
+		IdentityModel.set()
+		this.id = IdentityModel.get()
+	}
+	fetchCardList() {
+		PlaceModel.list().then(data => {
+			this.places = data
+		})
+	}
+	fetchTaskList(name: string) {
+		PlaceModel.getTasks(name).then(data => {
+			this.tasks = data
+		})
+	}
+	fetchCompleted(name: string) {
+		PlaceModel.getCompleted(name).then(data => {
+			this.completed = data
+		})
+	}
+	fetchCompletedList() {
+		PlaceModel.getCompletedList().then(data => {
+			if (this.selectedScreen === this.screens[1]) {
+				this.completedList = data.sort((a, b) => a.coin - b.coin)
+				return
+			}
+			this.completedList = data.sort((a, b) => {
+				const ad = a.visitedDate
+				const bd = b.visitedDate
+				if (ad > bd) return 1
+				if (ad < bd) return -1
+				return 0
+			})
+		})
+	}
+	getTotalCoin() {
+		PlaceModel.getTotalCoin().then(data => {
+			this.totalCoin = data
+		})
+	}
+	onClickCard(name: string) {
+		this.fetchTaskList(name)
+		this.fetchCompleted(name)
+		this.selectedScreen = name
+		this.selectedPlace = true
+	}
+	onClickTab(tab: string) {
+		this.selectedTab = tab
+	}
+	goPlace() {
+		this.selectedTab = this.tabs[0]
+		this.selectedScreen = this.screens[0]
+		this.selectedPlace = false
+	}
+	goCoin() {
+		this.getTotalCoin()
+		this.fetchCompletedList()
+		this.selectedScreen = this.screens[1]
+		this.selectedPlace = false
+	}
+	goTimeLine() {
+		this.fetchCompletedList()
+		this.selectedScreen = this.screens[2]
+		this.selectedPlace = false
+	}
+}
 </script>
 
 <style>
@@ -158,18 +141,18 @@ export default {
 	--black: #323232;
 	--active-tab: rgba(0, 0, 0, 0.87);
 	--disable: #0000008a;
-	--f-one-white: #F1F1F1;
+	--f-one-white: #f1f1f1;
 	--very-light: rgba(216, 216, 216, 0.5);
 }
 
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 body,
@@ -187,8 +170,8 @@ pre,
 blockquote,
 figure,
 hr {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -196,9 +179,9 @@ body {
 }
 
 noscript {
-  display: block;
-  margin-bottom: 1em;
-  margin-top: 1em;
+	display: block;
+	margin-bottom: 1em;
+	margin-top: 1em;
 }
 
 h1,
@@ -225,11 +208,12 @@ h1 {
 	font-weight: bold;
 }
 
-h1, .user-id, .total-coin {
+h1,
+.user-id,
+.total-coin {
 	margin-left: 26px;
-	color: var(--black)
+	color: var(--black);
 }
-
 
 .user-id {
 	margin-top: 20px;
@@ -272,5 +256,4 @@ ul {
 	background-color: var(--very-light);
 	margin-bottom: 14px;
 }
-
 </style>
