@@ -1,4 +1,3 @@
-//TODO: async await 사용하기
 export default {
 	data: [
 		{
@@ -66,74 +65,59 @@ export default {
 			visitedDate: 20190301,
 		},
 	] as place[],
-	list(): Promise<place[]> {
-		return Promise.resolve(this.data)
+	async list(): Promise<place[]> {
+		return this.data
+		// TODO: name과 img 속성만 복사하기
+		// .reduce(i => ({ name: i.name, img: i.img }))
 	},
-	getPlace(name: string): Promise<place> {
-		return Promise.resolve(
-			this.list().then(data => data.filter(item => item.name === name)[0])
-		)
+	async getPlace(name: string): Promise<place> {
+		const target = this.data.find(item => item.name === name)
+		if (typeof target === 'undefined') throw Error('Invalid search')
+		return target
 	},
-	getTasks(name: string): Promise<item[]> {
-		return Promise.resolve(
-			this.getPlace(name).then(data =>
-				data.items.filter(i => i.completed === false)
-			)
-		)
+	async getTasks(name: string): Promise<item[]> {
+		const { items } = await this.getPlace(name)
+		return items.filter(i => i.completed === false)
 	},
-	moveToCompleted(place: string, name: string): void {
-		this.getTasks(place).then(data =>
-			data
-				.filter(item => item.name === name)
-				.forEach(item => (item.completed = true))
-		)
+	async moveToCompleted(place: string, name: string): Promise<void> {
+		const tasks = await this.getTasks(place)
+		const Index = tasks.findIndex(i => i.name === name)
+		tasks[Index].completed = true
 	},
-	getCompleted(name: string): Promise<item[]> {
-		if (!name) return Promise.reject('no have completed list')
-		return Promise.resolve(
-			this.getPlace(name).then(data =>
-				data.items.filter(i => i.completed === true)
-			)
-		)
+	async getCompleted(name: string): Promise<item[]> {
+		const { items } = await this.getPlace(name)
+		return items.filter((i: item) => i.completed === true)
 	},
-	getCompletedList(): Promise<place[]> {
-		return Promise.resolve(
-			this.list().then(data => {
-				data.forEach(place =>
-					this.getCompleted(place.name).then(filtered => {
-						if (place.coin >= filtered.length * 10) return
-						place.coin = filtered.length * 10
-					})
-				)
-				return data.filter(place => place.coin > 0)
-			})
-		)
-	},
-	getTotalCoin(): Promise<number> {
-		return Promise.resolve(
-			this.list().then(
-				data =>
-					data.reduce((acc: number, place: place): number => {
-						acc += place.items.filter(
-							item => item.completed === true
-						).length
-						return acc
-					}, 0) * 10
-			)
-		)
-	},
-	getVisitedDate(name: string): Promise<number> {
-		return Promise.resolve(
-			this.getPlace(name).then(data => data.visitedDate)
-		)
-	},
-	randomChoice(): Promise<random> {
-		const place: place = this.data[Math.floor(Math.random() * this.data.length)]
-		const selected: item = place.items[Math.floor(Math.random() * place.items.length)]
-		selected.completed = true
-		return Promise.resolve({
-			name: place.name,
-			item: selected
+	async getCompletedList(): Promise<place[]> {
+		this.data.forEach(async place => {
+			const filtered = await this.getCompleted(place.name)
+			if (place.coin >= filtered.length * 10) return
+			place.coin = filtered.length * 10
 		})
-	}
+		return this.data.filter(place => place.coin)
+	},
+	async getTotalCoin(): Promise<number> {
+		return (
+			this.data.reduce((acc, place): number => {
+				acc += Object.keys(this.getCompleted(place.name)).length
+				return acc
+			}, 0) * 10
+		)
+	},
+	async getVisitedDate(name: string): Promise<number> {
+		const { visitedDate } = await this.getPlace(name)
+		return visitedDate
+	},
+	async randomChoice(): Promise<random> {
+		const place: place = this.data[
+			Math.floor(Math.random() * this.data.length)
+		]
+		const selected: item =
+			place.items[Math.floor(Math.random() * place.items.length)]
+		selected.completed = true
+		return {
+			name: place.name,
+			item: selected,
+		}
+	},
 }
