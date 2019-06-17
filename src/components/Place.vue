@@ -1,7 +1,7 @@
 <template>
   <ul class="card bg">
     <li
-      v-for="place in places"
+      v-for="place in list"
       v-bind:style="{ 'background-image': 'linear-gradient( rgba(0,0,0,0.5),rgba(0,0,0,0.5) ), url(./img/' + place.img + ')' }"
       v-on:click="onClickCard(place.name)"
     >
@@ -11,14 +11,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
+import { Vue, Component, PropSync, Emit } from 'vue-property-decorator'
 
 @Component
 export default class Place extends Vue {
-	@Prop(Array) private data!: place[]
-	get places(): place[] {
-		return this.data
-	}
+	@PropSync('data', { type: Array }) list!: place[]
 
 	@Emit('@click')
 	onClickCard(name: string) {

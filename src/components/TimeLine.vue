@@ -27,15 +27,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Prop, Component } from 'vue-property-decorator'
+import { Vue, PropSync, Component } from 'vue-property-decorator'
 
 @Component
 export default class TimeLine extends Vue {
-	@Prop(Array) readonly list!: place[]
-
-	get getList() {
-		return this.list
-	}
+	@PropSync('list', { type: Array }) getList!: place[]
 }
 </script>
 
