@@ -7,7 +7,7 @@
         <place :data="places" v-on:@click="onClickCard"></place>
       </div>
       <div v-show="selectedScreen===screens[1]">
-        <coin :id="id" :total="totalCoin" :list="completedList"></coin>
+        <coin :total="totalCoin" :list="completedList"></coin>
       </div>
       <div v-show="selectedScreen===screens[2]">
         <TimeLine :list="completedList"></TimeLine>
@@ -47,11 +47,9 @@ import NavBar from './components/NavBar.vue'
 		TimeLine,
 		Tabs,
 		NavBar,
-	}
+	},
 })
-
 export default class App extends Vue {
-	id: number = 0
 	totalCoin: number = 0
 	screens: string[] = ['Place', 'Coin', 'TimeLine']
 	selectedScreen: string = ''
@@ -64,14 +62,9 @@ export default class App extends Vue {
 	completed: item[] = []
 
 	created() {
-		this.getUserID()
 		this.selectedScreen = this.screens[0]
 		this.selectedTab = this.tabs[0]
 		this.fetchCardList()
-	}
-	getUserID() {
-		IdentityModel.set()
-		this.id = IdentityModel.get()
 	}
 	fetchCardList() {
 		PlaceModel.list().then(data => {
@@ -97,6 +90,7 @@ export default class App extends Vue {
 			this.completedList = data.sort((a, b) => {
 				const ad = a.visitedDate
 				const bd = b.visitedDate
+				if (!ad && bd) throw Error('완료된 항목의 방문 날짜가 존재하지 않습니다')
 				if (ad > bd) return 1
 				if (ad < bd) return -1
 				return 0

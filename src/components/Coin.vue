@@ -23,14 +23,19 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import IdentityModel from '../models/IdentityModel'
 
 @Component
 export default class Coin extends Vue {
-	@Prop(Number) readonly id!: number
 	@Prop(Number) readonly total!: number
 	@Prop(Array) readonly list!: place[]
+
+	created() {
+		IdentityModel.set()
+	}
+
 	get getId() {
-		return this.id
+		return IdentityModel.get()
 	}
 }
 </script>
