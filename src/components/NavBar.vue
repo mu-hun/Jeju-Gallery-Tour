@@ -27,17 +27,17 @@ export default class NavBar extends Vue {
 	screens: string[] = ['Place', 'Coin', 'TimeLine']
 	
 	@Emit('@place')
-	goPlace(): void {
+	goPlace() {
 		return
 	}
 
 	@Emit('@coin')
-	goCoin(): void {
+	goCoin() {
 		return
 	}
 
 	@Emit('@timeline')
-	goTimeLine(): void {
+	goTimeLine() {
 		return
 	}
 }
