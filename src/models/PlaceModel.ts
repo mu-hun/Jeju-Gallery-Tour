@@ -79,14 +79,14 @@ export default {
 		const { items } = await this.getPlace(name)
 		return items.filter(i => i.completed === false)
 	},
-	async moveToCompleted(place: string, name: string): Promise<void> {
+	async moveToCompleted(place: string, name: string) {
 		const tasks = await this.getTasks(place)
 		const Index = tasks.findIndex(i => i.name === name)
 		tasks[Index].completed = true
 	},
 	async getCompleted(name: string): Promise<item[]> {
 		const { items } = await this.getPlace(name)
-		return items.filter((i: item) => i.completed === true)
+		return items.filter(i => i.completed === true)
 	},
 	async getCompletedList(): Promise<place[]> {
 		this.data.forEach(async place => {
@@ -109,15 +109,15 @@ export default {
 		return visitedDate
 	},
 	async randomChoice(): Promise<random> {
-		const place: place = this.data[
+		const place = this.data[
 			Math.floor(Math.random() * this.data.length)
 		]
-		const selected: item =
+		const item =
 			place.items[Math.floor(Math.random() * place.items.length)]
-		selected.completed = true
+		item.completed = true
 		return {
 			name: place.name,
-			item: selected,
+			item
 		}
 	},
 }
