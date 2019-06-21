@@ -45,7 +45,6 @@ export default class NavBar extends Vue {
 
 <style scoped>
  div {
-	color: var(--black);
 	display: flex;
 	position: fixed;
 	bottom: 0;
@@ -61,13 +60,14 @@ export default class NavBar extends Vue {
 .mdil {
 	margin: 1rem auto;
 	font-size: 1.5em;
-	-webkit-text-stroke: .7px var(--black);
+	-webkit-text-stroke: .6px;
 	color: var(--disable);
 	cursor: pointer;
 }
 
 .mdil-active {
 	color: var(--black);
+	-webkit-text-stroke: .7px;
 	cursor: unset;
 }
 </style>

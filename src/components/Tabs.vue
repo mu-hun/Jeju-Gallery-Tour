@@ -15,7 +15,7 @@ import { Vue, Prop, Emit, Component } from 'vue-property-decorator'
 export default class Tabs extends Vue {
 	@Prop(String) readonly selected!: string
 	@Prop(Array) readonly tabs!: string
-	
+
 	@Emit('@switch')
 	onClickTab(tab: string) {
 		return tab
@@ -39,12 +39,13 @@ li {
 	padding: 1em;
 	text-align: center;
 	box-sizing: border-box;
-	color: var(--black);
+	color: #00000099;
 	cursor: pointer;
 }
 
 li.active {
 	border-bottom: 2.5px solid var(--active-tab);
+	color: var(--black);
 	cursor: unset;
 }
 </style>
