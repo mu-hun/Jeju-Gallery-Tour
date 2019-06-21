@@ -1,0 +1,7 @@
+{
+	"port": 7682,
+	"files": ["./dist/**/*.{html,htm,css,js}"],
+	"server": {
+		"baseDir": "./dist"
+	}
+}

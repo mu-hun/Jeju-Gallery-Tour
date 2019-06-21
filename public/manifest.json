@@ -1,6 +1,6 @@
 {
   "name": "Jeju Gallery Tour",
-  "short_name": "Jeju Gallery Tour",
+  "short_name": "JGT",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -13,8 +13,9 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#2D2D2D",
-  "theme_color": "#2D2D2D"
+  "background_color": "#F1F1F1",
+  "theme_color": "#F1F1F1",
+  "orientation": "portrait"
 }
